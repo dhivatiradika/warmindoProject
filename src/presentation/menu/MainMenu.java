@@ -1,10 +1,9 @@
 package presentation.menu;
 
 import domain.entity.Menu;
-import util.PrintUtil;
 import util.ScannerUtil;
 
-public class MainMenu implements Menu {
+public class MainMenu extends Menu {
     private final Option option;
 
     public MainMenu(Option option) {
@@ -13,16 +12,15 @@ public class MainMenu implements Menu {
 
     @Override
     public void printInterface() {
-        ScannerUtil scanner = new ScannerUtil();
-        String print = """
+        String menu = """
                 Main menu
                 1. Order
                 2. Inventory
                 3. Exit
                 Select menu:
                 """;
-        PrintUtil.printSeparator();
-        System.out.print(print);
+        printSeparator();
+        print(menu);
         int selectedMenu = scanner.scanInt();
 
         switch (selectedMenu) {
@@ -36,11 +34,11 @@ public class MainMenu implements Menu {
                 option.exit();
                 break;
             case ScannerUtil.INT_INPUT_MISS_MATCH:
-                System.out.println("Input not valid");
+                println("Input not valid");
                 printInterface();
                 break;
             default:
-                System.out.println("Menu not available.");
+                println("Menu not available.");
                 printInterface();
                 break;
         }
