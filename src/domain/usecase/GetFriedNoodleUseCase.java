@@ -1,0 +1,25 @@
+package domain.usecase;
+
+import data.ProductRepositoryImpl;
+import domain.entity.BoiledNoodle;
+import domain.entity.FriedNoodle;
+import domain.repository.ProductRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GetFriedNoodleUseCase {
+    private static final ProductRepository repository = new ProductRepositoryImpl();
+
+    public static List<FriedNoodle> execute() {
+        List<FriedNoodle> noodles = new ArrayList<>();
+
+        repository.getProducts().forEach( product -> {
+            if (product instanceof FriedNoodle) {
+                noodles.add((FriedNoodle) product);
+            }
+        });
+
+        return noodles;
+    }
+}

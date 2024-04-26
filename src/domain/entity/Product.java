@@ -2,7 +2,7 @@ package domain.entity;
 
 import java.util.UUID;
 
-abstract class Product {
+public abstract class Product {
     final UUID id = UUID.randomUUID();
     private int stock = 0;
     private String name;
