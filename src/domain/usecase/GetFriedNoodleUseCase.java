@@ -1,7 +1,6 @@
 package domain.usecase;
 
 import data.ProductRepositoryImpl;
-import domain.entity.BoiledNoodle;
 import domain.entity.FriedNoodle;
 import domain.repository.ProductRepository;
 

@@ -70,6 +70,27 @@ public class Main {
             }
         });
 
+        Menu addToppingMenu = new AddToppingMenu(navigation::backToStart);
+
+        Menu addNoodleMenu = new AddNoodleMenu(navigation::backToStart);
+
+        Menu inventoryMenu = new InventoryMenu(new InventoryMenu.Option() {
+            @Override
+            public void addNoodle() {
+                navigation.goTo(addNoodleMenu);
+            }
+
+            @Override
+            public void addTopping() {
+                navigation.goTo(addToppingMenu);
+            }
+
+            @Override
+            public void back() {
+                navigation.back();
+            }
+        });
+
         Menu mainMenu = new MainMenu(new MainMenu.Option() {
             @Override
             public void order() {
@@ -78,7 +99,7 @@ public class Main {
 
             @Override
             public void inventory() {
-                System.out.println("Inventory");
+                navigation.goTo(inventoryMenu);
             }
 
             @Override
