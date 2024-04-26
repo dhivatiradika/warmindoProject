@@ -1,20 +1,33 @@
 package presentation;
 
 import domain.entity.Menu;
-import presentation.menu.MainMenu;
-import presentation.menu.OrderMenu;
-import presentation.menu.OrderNoodleMenu;
-import presentation.menu.OrderVariantMenu;
+import presentation.menu.*;
 import presentation.navigation.Navigation;
 
 public class Main {
     public static void main(String[] args) {
         Navigation navigation = new Navigation();
 
+        Menu transactionListMenu = new TransactionListMenu(navigation::backToStart);
+
+        Menu spiceMenu = new SpiceMenu(navigation::backToStart);
+
+        Menu toppingMenu = new ToppingMenu(new ToppingMenu.Option() {
+            @Override
+            public void toppingSelected() {
+                navigation.goTo(spiceMenu);
+            }
+
+            @Override
+            public void noTopping() {
+                navigation.goTo(spiceMenu);
+            }
+        });
+
         Menu orderNoodleMenu = new OrderNoodleMenu(new OrderNoodleMenu.Option() {
             @Override
             public void noodleSelected() {
-
+                navigation.goTo(toppingMenu);
             }
 
             @Override
@@ -48,7 +61,7 @@ public class Main {
 
             @Override
             public void transactionList() {
-
+                navigation.goTo(transactionListMenu);
             }
 
             @Override

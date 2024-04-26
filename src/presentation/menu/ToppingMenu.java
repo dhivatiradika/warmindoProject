@@ -1,46 +1,40 @@
 package presentation.menu;
 
 import data.OrderRepositoryImpl;
-import domain.entity.BoiledNoodle;
 import domain.entity.Menu;
 import domain.entity.Noodle;
+import domain.entity.Topping;
 import domain.repository.OrderRepository;
-import domain.usecase.GetBoiledNoodleUseCase;
-import domain.usecase.GetFriedNoodleUseCase;
+import domain.usecase.GetToppingUseCase;
 import util.PrintUtil;
 import util.ScannerUtil;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class OrderNoodleMenu extends Menu {
+public class ToppingMenu extends Menu {
     private final Option option;
     private final OrderRepository orderRepository = new OrderRepositoryImpl();
 
-    public OrderNoodleMenu(Option option) {
+    public ToppingMenu(Option option) {
         this.option = option;
     }
 
     @Override
     public void printInterface() {
-        List<? extends Noodle> noodles;
-
-        if (orderRepository.getTemporaryVariant().equals(BoiledNoodle.VARIANT)) {
-            noodles = GetBoiledNoodleUseCase.execute();
-        } else {
-            noodles = GetFriedNoodleUseCase.execute();
-        }
+        Noodle temporaryNoodle = orderRepository.getTomporaryNoodle();
+        List<Topping> toppings = GetToppingUseCase.execute();
 
         printSeparator();
-        println("Boiled Noodle Menu");
+        println("Topping Menu");
         AtomicInteger number = new AtomicInteger(1);
-        noodles.forEach(noodle -> println(PrintUtil.itemWithNumber(number.getAndIncrement(), noodle.getFullName())));
-        println(PrintUtil.itemWithNumber(number.get(), "Back"));
-        println("Select noodle: ");
+        toppings.forEach(topping -> println(PrintUtil.itemWithNumber(number.getAndIncrement(), topping.getName())));
+        println(PrintUtil.itemWithNumber(number.get(), "No Topping"));
+        println("Select topping: ");
         int selectedMenu = scanner.scanInt();
 
         if (selectedMenu == number.get()) {
-            option.back();
+            option.noTopping();
             return;
         }
 
@@ -56,12 +50,13 @@ public class OrderNoodleMenu extends Menu {
             return;
         }
 
-        orderRepository.setTemporaryNoodle(noodles.get(selectedMenu-1));
-        option.noodleSelected();
+        temporaryNoodle.addTopping(toppings.get(selectedMenu-1));
+        option.toppingSelected();
     }
 
     public interface Option {
-        void noodleSelected();
-        void back();
+        void toppingSelected();
+        void noTopping();
     }
 }
+

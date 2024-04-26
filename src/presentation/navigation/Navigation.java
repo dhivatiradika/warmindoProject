@@ -16,4 +16,11 @@ public class Navigation {
         navigationStack.pop();
         navigationStack.lastElement().printInterface();
     }
+
+    public void backToStart() {
+        Menu start = navigationStack.firstElement();
+        navigationStack.removeAllElements();
+        navigationStack.push(start);
+        start.printInterface();
+    }
 }

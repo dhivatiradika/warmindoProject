@@ -1,9 +1,6 @@
 package data;
 
-import domain.entity.BoiledNoodle;
-import domain.entity.FriedNoodle;
-import domain.entity.Noodle;
-import domain.entity.Product;
+import domain.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +10,7 @@ public final class ApplicationData {
     private final List<Product> productList = new ArrayList<>();
     private Noodle temporaryNoodle;
     private String temporaryVariant;
+    private List<Product> orderList = new ArrayList<>();
 
     private ApplicationData() {
         insertDummyProducts();
@@ -50,6 +48,14 @@ public final class ApplicationData {
         this.temporaryVariant = temporaryVariant;
     }
 
+    public void addOrder(Product product) {
+        orderList.add(product);
+    }
+
+    public List<Product> getOrderList() {
+        return orderList;
+    }
+
     private void insertDummyProducts() {
         productList.add(new BoiledNoodle(10, "Indomie Kuah", 5000, "Soto"));
         productList.add(new BoiledNoodle(10, "Indomie Kuah", 5000, "Kari Ayam"));
@@ -59,6 +65,8 @@ public final class ApplicationData {
         productList.add(new FriedNoodle(10, "Indomie Goreng", 5000, "Rendang"));
         productList.add(new FriedNoodle(10, "Indomie Goreng", 5000, "Sambal Bawang"));
         productList.add(new FriedNoodle(10, "Indomie Goreng", 5000, "Salted Egg"));
-
+        productList.add(new Topping(10, "Telur", 2000));
+        productList.add(new Topping(10, "Sosis", 2000));
+        productList.add(new Topping(10, "Kornet", 2000));
     }
 }
