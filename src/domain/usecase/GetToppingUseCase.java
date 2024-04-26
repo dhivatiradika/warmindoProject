@@ -15,7 +15,7 @@ public class GetToppingUseCase {
         List<Topping> toppings = new ArrayList<>();
 
         repository.getProducts().forEach( product -> {
-            if (product instanceof Topping) {
+            if (product instanceof Topping && product.getStock() > 0) {
                 toppings.add((Topping) product);
             }
         });

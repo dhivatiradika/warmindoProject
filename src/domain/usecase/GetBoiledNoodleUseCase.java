@@ -14,7 +14,7 @@ public class GetBoiledNoodleUseCase {
         List<BoiledNoodle> noodles = new ArrayList<>();
 
         repository.getProducts().forEach( product -> {
-            if (product instanceof BoiledNoodle) {
+            if (product instanceof BoiledNoodle && product.getStock() > 0) {
                 noodles.add((BoiledNoodle) product);
             }
         });
